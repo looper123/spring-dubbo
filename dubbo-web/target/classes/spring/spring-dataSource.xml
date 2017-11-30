@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!--jndi factory bean-->
+    <bean name="myDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="jdbc/my_mysql"/>
+        <property name="resourceRef" value="true"/>
+    </bean>
+
+    <!--log4j proxy-->
+    <bean name="myProxyforDataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+        <constructor-arg ref="myDataSource"/>
+    </bean>
+
+    <!--transaction-->
+    <bean name="myTransaction"  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="myDataSource"/>
+    </bean>
+
+    <!--support annotation for transaction-->
+    <tx:annotation-driven transaction-manager="myTransaction"/>
+
+    <!--config transaction strategy-->
+    <tx:advice transaction-manager="myTransaction">
+        <tx:attributes>
+            <!--set query/find/get  method transaction 'read only'-->
+            <!--'read only' is a notice to database ,so as to optimised for database transaction-->
+            <tx:method name="query*" read-only="true"/>
+            <tx:method name="find*" read-only="true"/>
+            <tx:method name="get*" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <bean name="mySqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--set proxy datasource-->
+        <property name="dataSource" ref="myProxyforDataSource"/>
+                <!--load mybatis config file -->
+        <property name="configLocation" value="classpath:mybatis/mybatis.xml"/>
+        <!--mapper.xml file lcoation-->
+        <property name="mapperLocations" value="classpath*:com/itcast/dubbo/mapper"/>
+        <!--别名扫描包 减少实体类长度-->
+        <property name="typeAliases" value="com.itcast.dubbo.pojo"/>
+    </bean>
+
+
+    <!--jdbc template  -->
+    <bean name="jdbcTemplate"  class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="myProxyforDataSource"/>
+    </bean>
+</beans>

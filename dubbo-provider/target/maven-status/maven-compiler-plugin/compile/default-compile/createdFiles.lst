@@ -1,0 +1,3 @@
+com\itcast\dubbo\provide\Provider.class
+com\itcast\dubbo\service\impl\DemoServiceImpl.class
+com\itcast\dubbo\service\impl\FileUpAndDownloadServiceImpl.class

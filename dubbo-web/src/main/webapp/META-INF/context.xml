@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+       <Resource
+                name="jdbc/MysqlDataSource"
+                factory="com.alibaba.druid.pool.DruidDataSourceFactory"
+                auth="Container"
+                type="javax.sql.DataSource"
+                driverClassName="com.mysql.jdbc.Driver"
+                url="jdbc.url=jdbc:mysql://10.20.33.33:3306/ops?useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true"
+                username="root"
+                password="123456"
+                maxActive="50"
+                maxWait="10000"
+                removeabandoned="true"
+                removeabandonedtimeout="60"
+                logabandoned="false"
+                filters="stat"/>
+       />
+</Context>

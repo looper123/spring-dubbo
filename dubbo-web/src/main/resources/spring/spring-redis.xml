@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--connecttionFactory-->
+    <bean name="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="hostName" value="${zw.redis.host.name}"/>
+        <property name="port" value="${zw.redis.port}"/>
+        <property name="database" value="${zw.redis.database}"/>
+        <property name="usePool" value="${zw.redis.usepool}"/>
+        <property name="poolConfig" ref="jedisPoolConfig"/>
+    </bean>
+
+    <!-- redis template definition -->
+    <bean name="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
+        <property name="connectionFactory" ref="jedisConnectionFactory"/>
+        <property name="keySerializer" ref="keySerializer"/>
+        <property name="valueSerializer" ref="valueSerializer"/>
+    </bean>
+
+    <!--pool config-->
+    <bean name="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxTotal" value="${zw.redis.maxTotal}"/>
+        <property name="maxIdle" value="${zw.redis.maxIdle}"/>
+        <property name="minIdle" value="${zw.redis.minIdle}"/>
+        <property name="maxWaitMillis" value="${zw.redis.maxWaitMillis}"/>
+        <property name="testOnBorrow" value="true"/>
+        <property name="testOnReturn" value="true"/>
+    </bean>
+
+    <bean name="redisStringCache" class="com.itcast.dubbo.web.cache.RedisStringCache"/>
+
+    <bean name="keySerializer" class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+
+    <bean name="valueSerializer" class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer"/>
+</beans>

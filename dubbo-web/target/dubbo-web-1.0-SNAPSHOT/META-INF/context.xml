@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+       <Resource  name="jdbc/oracle_mobile"
+                  auth="Container"
+                  type="javax.sql.DataSource"
+                  username="movebi"
+                  password="movebi"
+                  driverClassName="oracle.jdbc.driver.OracleDriver"
+                  url="jdbc:oracle:thin:@192.168.218.91:1521:odsdb"
+                  maxActive="10"
+                  maxIdle="2" />
+</Context>

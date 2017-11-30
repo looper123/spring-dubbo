@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!--spring的 xsd文件 在spring-context包下的config文件夹下 （也有可能是单独的config jar包）-->
+    <!--<dubbo:annotation />-->
+    <context:component-scan base-package="com.itcast.dubbo">
+        <!--<context:include-filter type="annotation" expression="com.alibaba.dubbo.config.annotation.Service"/>-->
+    </context:component-scan>
+
+    <!--注意引入顺序-->
+    <!--classpth == src目录-->
+    <context:property-placeholder location="classpath*:*.properties"/>
+
+    <!--保证dubbo服务在初始化三层结构之前已经初始化完毕！！-->
+    <import resource="spring-dubbo.xml"/>
+    <import resource="springmvc-servlet.xml"/>
+    <import resource="spring-redis.xml"/>
+
+</beans>

@@ -1,0 +1,6 @@
+com\itcast\dubbo\consum\RandomTest.class
+com\itcast\dubbo\controller\HelloController.class
+com\itcast\dubbo\consum\Consumer.class
+com\itcast\dubbo\server\HelloServer.class
+com\itcast\dubbo\controller\UserManagerController.class
+com\itcast\dubbo\service\HelloService.class

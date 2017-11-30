@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+
+       <!-- 提供方应用信息，用于计算依赖关系 -->
+       <dubbo:application name="${dubbo.application.name}"  />
+
+       <!-- 使用multicast广播注册中心暴露服务地址 -->
+       <dubbo:registry address="${dubbo.zookeeper.registry.address}"  />
+
+       <!-- 用dubbo协议在20880端口暴露服务 -->
+       <dubbo:protocol name="${dubbo.protocol.name}" port="${dubbo.protocol.port}" />
+
+       <!--超时时间一般设置在服务提供方 方法执行时间提供方更加清楚-->
+       <dubbo:provider timeout="${dubbo.provider.timeout}" cluster="${dubbo.provider.cluster}" version="${dubbo.provider.version}"  retries="${dubbo.provider.retries}"/>
+
+       <!--扫描提供服务的包   包括 接口and 具体实现类-->
+       <dubbo:annotation package="com.itcast.dubbo"/>
+
+       <!--使用@Service注解可以省略以下配置-->
+       <!-- 声明需要暴露的服务接口 -->
+       <!--<dubbo:service interface="com.itcast.dubbo.ser.service.DemoService" ref="demoService"  />-->
+       <!-- 和本地bean一样实现服务 -->
+       <!--<bean id="demoService" class="com.itcast.dubbo.pro.service.impl.DemoServiceImpl" />-->
+
+</beans>
