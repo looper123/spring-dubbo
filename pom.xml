@@ -12,7 +12,6 @@
         <module>dubbo-service</module>
         <module>dubbo-provider</module>
         <module>dubbo-web</module>
-        <module>dubbo-sso</module>
     </modules>
 
     <properties>

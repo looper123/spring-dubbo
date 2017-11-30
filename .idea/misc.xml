@@ -18,6 +18,7 @@
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/dubbo-sso/pom.xml" />
         <option value="$PROJECT_DIR$/../yitao/pom.xml" />
         <option value="$PROJECT_DIR$/../yitao/yitao-test/pom.xml" />
       </set>
